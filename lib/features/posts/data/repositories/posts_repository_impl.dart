@@ -15,7 +15,5 @@ class PostsRepositoryImpl implements PostsRepository {
   }
 
   @override
-  Future<void> createPost(PostModel post) {
-    throw UnimplementedError();
-  }
+  Future<void> createPost(PostModel post) async => guardedApiCall<void>(() => _remoteDatasource.createPost(post));
 }

@@ -8,6 +8,7 @@ import 'package:Postly/features/posts/domain/models/post_model.dart';
 
 abstract class PostsRemoteDatasource implements RemoteDatasource {
   Future<List<PostModel>> fetchPosts();
+  Future<void> createPost(PostModel post);
 }
 
 class PostsRemoteDatasourceImpl implements PostsRemoteDatasource {
@@ -36,4 +37,20 @@ class PostsRemoteDatasourceImpl implements PostsRemoteDatasource {
 
   @override
   void dispose() {}
+
+  @override
+  Future<void> createPost(PostModel post) async {
+    final _result = await _networkService.postHttp(
+      '/posts',
+      body: post.toJson(),
+    );
+
+    if (_result['error'] != null) {
+      await handleApiFailure(
+        source: 'createPost',
+        errorMessage: _result['message'] as String,
+        errorCode: _result['error'] as ApiErrors,
+      );
+    }
+  }
 }

@@ -17,8 +17,8 @@ void main() {
     testSubject = PostsRemoteDatasourceImpl(networkService);
   });
 
-  group('Operations', () {
-    test('fetchPosts returns a successfully deserialised List<PostModel> from server', () async {
+  group('fetchPosts', () {
+    test(' returns a successfully deserialised List<PostModel> from server', () async {
       when(networkService.getHttp(argThat(isA<String>()))).thenAnswer((_) async => {
             "data": postsSampleJson,
             "error": null,
@@ -28,24 +28,56 @@ void main() {
 
       expect(result, postsSample);
     });
+
+    group('Error handling', () {
+      test('Throws an ApiFailure on server error', () {
+        when(networkService.getHttp(argThat(isA<String>()))).thenAnswer(
+          (_) async => <String, dynamic>{
+            'error': ApiErrors.failure,
+            'message': 'error',
+          },
+        );
+
+        expectLater(() async => testSubject.fetchPosts(), throwsA(isA<ApiFailure>()));
+      });
+
+      test('Throws an Exception on unexpected exception', () {
+        when(networkService.getHttp(argThat(isA<String>()))).thenThrow(Exception());
+
+        expect(() => testSubject.fetchPosts(), throwsA(isA<Exception>()));
+      });
+    });
   });
 
-  group('Error handling', () {
-    test('Throws an ApiFailure on server error', () {
-      when(networkService.getHttp(argThat(isA<String>()))).thenAnswer(
-        (_) async => <String, dynamic>{
-          'error': ApiErrors.failure,
-          'message': 'error',
-        },
-      );
+  group('createPost', () {
+    test(' calls postHttp successfully', () async {
+      when(networkService.postHttp(any, body: newPost.toJson())).thenAnswer((_) async => {
+            "data": newPostSampleResponse,
+            "error": null,
+          });
 
-      expectLater(() async => testSubject.fetchPosts(), throwsA(isA<ApiFailure>()));
+      await testSubject.createPost(newPost);
+
+      verify(networkService.postHttp(any, body: newPost.toJson()));
     });
 
-    test('Throws an Exception on unexpected exception', () {
-      when(networkService.getHttp(argThat(isA<String>()))).thenThrow(Exception());
+    group('Error handling', () {
+      test('Throws an ApiFailure on server error', () {
+        when(networkService.postHttp(any, body: anyNamed('body'))).thenAnswer(
+          (_) async => <String, dynamic>{
+            'error': ApiErrors.failure,
+            'message': 'error',
+          },
+        );
 
-      expect(() => testSubject.fetchPosts(), throwsA(isA<Exception>()));
+        expectLater(() async => testSubject.createPost(newPost), throwsA(isA<ApiFailure>()));
+      });
+
+      test('Throws an Exception on unexpected exception', () {
+        when(networkService.postHttp(any, body: anyNamed('body'))).thenThrow(Exception());
+
+        expect(() => testSubject.createPost(newPost), throwsA(isA<Exception>()));
+      });
     });
   });
 }
