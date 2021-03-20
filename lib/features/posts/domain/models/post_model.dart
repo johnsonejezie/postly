@@ -7,8 +7,8 @@ part 'post_model.g.dart';
 @freezed
 abstract class PostModel with _$PostModel {
   const factory PostModel({
-    @required String id,
-    @required String userId,
+    @required int id,
+    @required int userId,
     @required String title,
     @required String body,
   }) = _PostModel;

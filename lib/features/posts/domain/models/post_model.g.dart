@@ -8,8 +8,8 @@ part of 'post_model.dart';
 
 _$_PostModel _$_$_PostModelFromJson(Map<String, dynamic> json) {
   return _$_PostModel(
-    id: json['id'] as String,
-    userId: json['userId'] as String,
+    id: json['id'] as int,
+    userId: json['userId'] as int,
     title: json['title'] as String,
     body: json['body'] as String,
   );

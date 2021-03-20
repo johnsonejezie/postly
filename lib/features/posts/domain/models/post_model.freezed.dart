@@ -18,8 +18,8 @@ class _$PostModelTearOff {
 
 // ignore: unused_element
   _PostModel call(
-      {@required String id,
-      @required String userId,
+      {@required int id,
+      @required int userId,
       @required String title,
       @required String body}) {
     return _PostModel(
@@ -42,8 +42,8 @@ const $PostModel = _$PostModelTearOff();
 
 /// @nodoc
 mixin _$PostModel {
-  String get id;
-  String get userId;
+  int get id;
+  int get userId;
   String get title;
   String get body;
 
@@ -56,7 +56,7 @@ mixin _$PostModel {
 abstract class $PostModelCopyWith<$Res> {
   factory $PostModelCopyWith(PostModel value, $Res Function(PostModel) then) =
       _$PostModelCopyWithImpl<$Res>;
-  $Res call({String id, String userId, String title, String body});
+  $Res call({int id, int userId, String title, String body});
 }
 
 /// @nodoc
@@ -75,8 +75,8 @@ class _$PostModelCopyWithImpl<$Res> implements $PostModelCopyWith<$Res> {
     Object body = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      userId: userId == freezed ? _value.userId : userId as String,
+      id: id == freezed ? _value.id : id as int,
+      userId: userId == freezed ? _value.userId : userId as int,
       title: title == freezed ? _value.title : title as String,
       body: body == freezed ? _value.body : body as String,
     ));
@@ -89,7 +89,7 @@ abstract class _$PostModelCopyWith<$Res> implements $PostModelCopyWith<$Res> {
           _PostModel value, $Res Function(_PostModel) then) =
       __$PostModelCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String userId, String title, String body});
+  $Res call({int id, int userId, String title, String body});
 }
 
 /// @nodoc
@@ -109,8 +109,8 @@ class __$PostModelCopyWithImpl<$Res> extends _$PostModelCopyWithImpl<$Res>
     Object body = freezed,
   }) {
     return _then(_PostModel(
-      id: id == freezed ? _value.id : id as String,
-      userId: userId == freezed ? _value.userId : userId as String,
+      id: id == freezed ? _value.id : id as int,
+      userId: userId == freezed ? _value.userId : userId as int,
       title: title == freezed ? _value.title : title as String,
       body: body == freezed ? _value.body : body as String,
     ));
@@ -135,9 +135,9 @@ class _$_PostModel implements _PostModel {
       _$_$_PostModelFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
-  final String userId;
+  final int userId;
   @override
   final String title;
   @override
@@ -183,8 +183,8 @@ class _$_PostModel implements _PostModel {
 
 abstract class _PostModel implements PostModel {
   const factory _PostModel(
-      {@required String id,
-      @required String userId,
+      {@required int id,
+      @required int userId,
       @required String title,
       @required String body}) = _$_PostModel;
 
@@ -192,9 +192,9 @@ abstract class _PostModel implements PostModel {
       _$_PostModel.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
-  String get userId;
+  int get userId;
   @override
   String get title;
   @override
