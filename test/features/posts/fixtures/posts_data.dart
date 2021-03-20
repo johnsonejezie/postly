@@ -19,17 +19,9 @@ const List<PostModel> postsSample = [
   PostModel(id: 2, userId: 2, title: '2', body: '2'),
 ];
 
+const newPost = PostModel(id: 3, userId: 3, title: '3', body: '3');
+
 const postsSampleJson = <Map<String, dynamic>>[
-  {
-    "userId": 1,
-    "id": 1,
-    "title": "1",
-    "body": "1",
-  },
-  {
-    "userId": 2,
-    "id": 2,
-    "title": "2",
-    "body": "2",
-  }
+  {"userId": 1, "id": 1, "title": "1", "body": "1"},
+  {"userId": 2, "id": 2, "title": "2", "body": "2"}
 ];

@@ -13,4 +13,9 @@ class PostsRepositoryImpl implements PostsRepository {
     final res = await guardedApiCall<List<PostModel>>(_remoteDatasource.fetchPosts);
     return res;
   }
+
+  @override
+  Future<void> createPost(PostModel post) {
+    throw UnimplementedError();
+  }
 }
