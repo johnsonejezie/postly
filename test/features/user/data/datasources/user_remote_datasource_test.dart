@@ -1,32 +1,32 @@
 import 'package:Postly/core/data/network/network_service.dart';
 import 'package:Postly/core/data/network/network_service_impl.dart';
 import 'package:Postly/core/failures.dart';
-import 'package:Postly/features/posts/data/datasources/posts_remote_datasource.dart';
+import 'package:Postly/features/user/data/datasources/user_remote_datasource.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../fixtures/posts_data.dart';
+import '../../fixtures/user_data.dart';
 
 class MockNetworkService extends Mock implements NetworkService {}
 
 void main() {
-  PostsRemoteDatasourceImpl testSubject;
+  UserRemoteDatasourceImpl testSubject;
   final networkService = MockNetworkService();
 
   setUp(() {
-    testSubject = PostsRemoteDatasourceImpl(networkService);
+    testSubject = UserRemoteDatasourceImpl(networkService);
   });
 
   group('Operations', () {
-    test('fetchPosts returns a successfully deserialised List<PostModel> from server', () async {
+    test('fetchUsers returns a successfully deserialised UserModel from server', () async {
       when(networkService.getHttp(argThat(isA<String>()))).thenAnswer((_) async => {
-            "data": postsSampleJson,
+            "data": [userJson, userJson],
             "error": null,
           });
 
-      final result = await testSubject.fetchPosts();
+      final result = await testSubject.fetchUser();
 
-      expect(result, postsSample);
+      expect(result, userModel);
     });
   });
 
@@ -39,13 +39,13 @@ void main() {
         },
       );
 
-      expectLater(() async => testSubject.fetchPosts(), throwsA(isA<ApiFailure>()));
+      expectLater(() async => testSubject.fetchUser(), throwsA(isA<ApiFailure>()));
     });
 
     test('Throws an Exception on unexpected exception', () {
       when(networkService.getHttp(argThat(isA<String>()))).thenThrow(Exception());
 
-      expect(() => testSubject.fetchPosts(), throwsA(isA<Exception>()));
+      expect(() => testSubject.fetchUser(), throwsA(isA<Exception>()));
     });
   });
 }
