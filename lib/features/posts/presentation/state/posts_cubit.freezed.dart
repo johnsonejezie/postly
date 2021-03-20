@@ -16,6 +16,8 @@ PostsState _$PostsStateFromJson(Map<String, dynamic> json) {
       return _LoadingPostsState.fromJson(json);
     case 'loaded':
       return _LoadedPostsState.fromJson(json);
+    case 'error':
+      return _ErrorPostsState.fromJson(json);
 
     default:
       throw FallThroughError();
@@ -48,6 +50,13 @@ class _$PostsStateTearOff {
   }
 
 // ignore: unused_element
+  _ErrorPostsState error({@required PostsStatePayload payload}) {
+    return _ErrorPostsState(
+      payload: payload,
+    );
+  }
+
+// ignore: unused_element
   PostsState fromJson(Map<String, Object> json) {
     return PostsState.fromJson(json);
   }
@@ -66,12 +75,14 @@ mixin _$PostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult error(PostsStatePayload payload),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult error(PostsStatePayload payload),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -79,12 +90,14 @@ mixin _$PostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult error(_ErrorPostsState value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult error(_ErrorPostsState value),
     @required TResult orElse(),
   });
   Map<String, dynamic> toJson();
@@ -207,10 +220,12 @@ class _$_InitialPostsState implements _InitialPostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult error(PostsStatePayload payload),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(error != null);
     return initial(payload);
   }
 
@@ -220,6 +235,7 @@ class _$_InitialPostsState implements _InitialPostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult error(PostsStatePayload payload),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -235,10 +251,12 @@ class _$_InitialPostsState implements _InitialPostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult error(_ErrorPostsState value),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(error != null);
     return initial(this);
   }
 
@@ -248,6 +266,7 @@ class _$_InitialPostsState implements _InitialPostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult error(_ErrorPostsState value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -353,10 +372,12 @@ class _$_LoadingPostsState implements _LoadingPostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult error(PostsStatePayload payload),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(error != null);
     return loading(payload);
   }
 
@@ -366,6 +387,7 @@ class _$_LoadingPostsState implements _LoadingPostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult error(PostsStatePayload payload),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -381,10 +403,12 @@ class _$_LoadingPostsState implements _LoadingPostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult error(_ErrorPostsState value),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(error != null);
     return loading(this);
   }
 
@@ -394,6 +418,7 @@ class _$_LoadingPostsState implements _LoadingPostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult error(_ErrorPostsState value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -498,10 +523,12 @@ class _$_LoadedPostsState implements _LoadedPostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult error(PostsStatePayload payload),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(error != null);
     return loaded(payload);
   }
 
@@ -511,6 +538,7 @@ class _$_LoadedPostsState implements _LoadedPostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult error(PostsStatePayload payload),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -526,10 +554,12 @@ class _$_LoadedPostsState implements _LoadedPostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult error(_ErrorPostsState value),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(error != null);
     return loaded(this);
   }
 
@@ -539,6 +569,7 @@ class _$_LoadedPostsState implements _LoadedPostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult error(_ErrorPostsState value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -568,6 +599,157 @@ abstract class _LoadedPostsState implements PostsState {
   _$LoadedPostsStateCopyWith<_LoadedPostsState> get copyWith;
 }
 
+/// @nodoc
+abstract class _$ErrorPostsStateCopyWith<$Res>
+    implements $PostsStateCopyWith<$Res> {
+  factory _$ErrorPostsStateCopyWith(
+          _ErrorPostsState value, $Res Function(_ErrorPostsState) then) =
+      __$ErrorPostsStateCopyWithImpl<$Res>;
+  @override
+  $Res call({PostsStatePayload payload});
+
+  @override
+  $PostsStatePayloadCopyWith<$Res> get payload;
+}
+
+/// @nodoc
+class __$ErrorPostsStateCopyWithImpl<$Res>
+    extends _$PostsStateCopyWithImpl<$Res>
+    implements _$ErrorPostsStateCopyWith<$Res> {
+  __$ErrorPostsStateCopyWithImpl(
+      _ErrorPostsState _value, $Res Function(_ErrorPostsState) _then)
+      : super(_value, (v) => _then(v as _ErrorPostsState));
+
+  @override
+  _ErrorPostsState get _value => super._value as _ErrorPostsState;
+
+  @override
+  $Res call({
+    Object payload = freezed,
+  }) {
+    return _then(_ErrorPostsState(
+      payload:
+          payload == freezed ? _value.payload : payload as PostsStatePayload,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_ErrorPostsState implements _ErrorPostsState {
+  const _$_ErrorPostsState({@required this.payload}) : assert(payload != null);
+
+  factory _$_ErrorPostsState.fromJson(Map<String, dynamic> json) =>
+      _$_$_ErrorPostsStateFromJson(json);
+
+  @override
+  final PostsStatePayload payload;
+
+  @override
+  String toString() {
+    return 'PostsState.error(payload: $payload)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ErrorPostsState &&
+            (identical(other.payload, payload) ||
+                const DeepCollectionEquality().equals(other.payload, payload)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(payload);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ErrorPostsStateCopyWith<_ErrorPostsState> get copyWith =>
+      __$ErrorPostsStateCopyWithImpl<_ErrorPostsState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(PostsStatePayload payload),
+    @required TResult loading(PostsStatePayload payload),
+    @required TResult loaded(PostsStatePayload payload),
+    @required TResult error(PostsStatePayload payload),
+  }) {
+    assert(initial != null);
+    assert(loading != null);
+    assert(loaded != null);
+    assert(error != null);
+    return error(payload);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(PostsStatePayload payload),
+    TResult loading(PostsStatePayload payload),
+    TResult loaded(PostsStatePayload payload),
+    TResult error(PostsStatePayload payload),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(payload);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_InitialPostsState value),
+    @required TResult loading(_LoadingPostsState value),
+    @required TResult loaded(_LoadedPostsState value),
+    @required TResult error(_ErrorPostsState value),
+  }) {
+    assert(initial != null);
+    assert(loading != null);
+    assert(loaded != null);
+    assert(error != null);
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_InitialPostsState value),
+    TResult loading(_LoadingPostsState value),
+    TResult loaded(_LoadedPostsState value),
+    TResult error(_ErrorPostsState value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ErrorPostsStateToJson(this)..['runtimeType'] = 'error';
+  }
+}
+
+abstract class _ErrorPostsState implements PostsState {
+  const factory _ErrorPostsState({@required PostsStatePayload payload}) =
+      _$_ErrorPostsState;
+
+  factory _ErrorPostsState.fromJson(Map<String, dynamic> json) =
+      _$_ErrorPostsState.fromJson;
+
+  @override
+  PostsStatePayload get payload;
+  @override
+  @JsonKey(ignore: true)
+  _$ErrorPostsStateCopyWith<_ErrorPostsState> get copyWith;
+}
+
 PostsStatePayload _$PostsStatePayloadFromJson(Map<String, dynamic> json) {
   return _PostsStatePayload.fromJson(json);
 }
@@ -577,9 +759,11 @@ class _$PostsStatePayloadTearOff {
   const _$PostsStatePayloadTearOff();
 
 // ignore: unused_element
-  _PostsStatePayload call({@required List<PostModel> posts}) {
+  _PostsStatePayload call(
+      {@required List<PostModel> posts, @required String error}) {
     return _PostsStatePayload(
       posts: posts,
+      error: error,
     );
   }
 
@@ -596,6 +780,7 @@ const $PostsStatePayload = _$PostsStatePayloadTearOff();
 /// @nodoc
 mixin _$PostsStatePayload {
   List<PostModel> get posts;
+  String get error;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -607,7 +792,7 @@ abstract class $PostsStatePayloadCopyWith<$Res> {
   factory $PostsStatePayloadCopyWith(
           PostsStatePayload value, $Res Function(PostsStatePayload) then) =
       _$PostsStatePayloadCopyWithImpl<$Res>;
-  $Res call({List<PostModel> posts});
+  $Res call({List<PostModel> posts, String error});
 }
 
 /// @nodoc
@@ -622,9 +807,11 @@ class _$PostsStatePayloadCopyWithImpl<$Res>
   @override
   $Res call({
     Object posts = freezed,
+    Object error = freezed,
   }) {
     return _then(_value.copyWith(
       posts: posts == freezed ? _value.posts : posts as List<PostModel>,
+      error: error == freezed ? _value.error : error as String,
     ));
   }
 }
@@ -636,7 +823,7 @@ abstract class _$PostsStatePayloadCopyWith<$Res>
           _PostsStatePayload value, $Res Function(_PostsStatePayload) then) =
       __$PostsStatePayloadCopyWithImpl<$Res>;
   @override
-  $Res call({List<PostModel> posts});
+  $Res call({List<PostModel> posts, String error});
 }
 
 /// @nodoc
@@ -653,9 +840,11 @@ class __$PostsStatePayloadCopyWithImpl<$Res>
   @override
   $Res call({
     Object posts = freezed,
+    Object error = freezed,
   }) {
     return _then(_PostsStatePayload(
       posts: posts == freezed ? _value.posts : posts as List<PostModel>,
+      error: error == freezed ? _value.error : error as String,
     ));
   }
 }
@@ -664,17 +853,21 @@ class __$PostsStatePayloadCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_PostsStatePayload implements _PostsStatePayload {
-  const _$_PostsStatePayload({@required this.posts}) : assert(posts != null);
+  const _$_PostsStatePayload({@required this.posts, @required this.error})
+      : assert(posts != null),
+        assert(error != null);
 
   factory _$_PostsStatePayload.fromJson(Map<String, dynamic> json) =>
       _$_$_PostsStatePayloadFromJson(json);
 
   @override
   final List<PostModel> posts;
+  @override
+  final String error;
 
   @override
   String toString() {
-    return 'PostsStatePayload(posts: $posts)';
+    return 'PostsStatePayload(posts: $posts, error: $error)';
   }
 
   @override
@@ -682,12 +875,16 @@ class _$_PostsStatePayload implements _PostsStatePayload {
     return identical(this, other) ||
         (other is _PostsStatePayload &&
             (identical(other.posts, posts) ||
-                const DeepCollectionEquality().equals(other.posts, posts)));
+                const DeepCollectionEquality().equals(other.posts, posts)) &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(posts);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(posts) ^
+      const DeepCollectionEquality().hash(error);
 
   @JsonKey(ignore: true)
   @override
@@ -701,14 +898,17 @@ class _$_PostsStatePayload implements _PostsStatePayload {
 }
 
 abstract class _PostsStatePayload implements PostsStatePayload {
-  const factory _PostsStatePayload({@required List<PostModel> posts}) =
-      _$_PostsStatePayload;
+  const factory _PostsStatePayload(
+      {@required List<PostModel> posts,
+      @required String error}) = _$_PostsStatePayload;
 
   factory _PostsStatePayload.fromJson(Map<String, dynamic> json) =
       _$_PostsStatePayload.fromJson;
 
   @override
   List<PostModel> get posts;
+  @override
+  String get error;
   @override
   @JsonKey(ignore: true)
   _$PostsStatePayloadCopyWith<_PostsStatePayload> get copyWith;

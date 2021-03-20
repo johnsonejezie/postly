@@ -48,12 +48,26 @@ Map<String, dynamic> _$_$_LoadedPostsStateToJson(
       'payload': instance.payload?.toJson(),
     };
 
+_$_ErrorPostsState _$_$_ErrorPostsStateFromJson(Map<String, dynamic> json) {
+  return _$_ErrorPostsState(
+    payload: json['payload'] == null
+        ? null
+        : PostsStatePayload.fromJson(json['payload'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$_$_ErrorPostsStateToJson(_$_ErrorPostsState instance) =>
+    <String, dynamic>{
+      'payload': instance.payload?.toJson(),
+    };
+
 _$_PostsStatePayload _$_$_PostsStatePayloadFromJson(Map<String, dynamic> json) {
   return _$_PostsStatePayload(
     posts: (json['posts'] as List)
         ?.map((e) =>
             e == null ? null : PostModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    error: json['error'] as String,
   );
 }
 
@@ -61,4 +75,5 @@ Map<String, dynamic> _$_$_PostsStatePayloadToJson(
         _$_PostsStatePayload instance) =>
     <String, dynamic>{
       'posts': instance.posts?.map((e) => e?.toJson())?.toList(),
+      'error': instance.error,
     };
