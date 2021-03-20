@@ -18,14 +18,12 @@ class _$AddressModelTearOff {
 
 // ignore: unused_element
   _AddressModel call(
-      {@required int id,
-      @required String street,
+      {@required String street,
       @required String suite,
       @required String city,
       @required String zipcode,
       @required GeoModel geo}) {
     return _AddressModel(
-      id: id,
       street: street,
       suite: suite,
       city: city,
@@ -46,7 +44,6 @@ const $AddressModel = _$AddressModelTearOff();
 
 /// @nodoc
 mixin _$AddressModel {
-  int get id;
   String get street;
   String get suite;
   String get city;
@@ -64,12 +61,7 @@ abstract class $AddressModelCopyWith<$Res> {
           AddressModel value, $Res Function(AddressModel) then) =
       _$AddressModelCopyWithImpl<$Res>;
   $Res call(
-      {int id,
-      String street,
-      String suite,
-      String city,
-      String zipcode,
-      GeoModel geo});
+      {String street, String suite, String city, String zipcode, GeoModel geo});
 
   $GeoModelCopyWith<$Res> get geo;
 }
@@ -84,7 +76,6 @@ class _$AddressModelCopyWithImpl<$Res> implements $AddressModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
     Object street = freezed,
     Object suite = freezed,
     Object city = freezed,
@@ -92,7 +83,6 @@ class _$AddressModelCopyWithImpl<$Res> implements $AddressModelCopyWith<$Res> {
     Object geo = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
       street: street == freezed ? _value.street : street as String,
       suite: suite == freezed ? _value.suite : suite as String,
       city: city == freezed ? _value.city : city as String,
@@ -120,12 +110,7 @@ abstract class _$AddressModelCopyWith<$Res>
       __$AddressModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
-      String street,
-      String suite,
-      String city,
-      String zipcode,
-      GeoModel geo});
+      {String street, String suite, String city, String zipcode, GeoModel geo});
 
   @override
   $GeoModelCopyWith<$Res> get geo;
@@ -143,7 +128,6 @@ class __$AddressModelCopyWithImpl<$Res> extends _$AddressModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
     Object street = freezed,
     Object suite = freezed,
     Object city = freezed,
@@ -151,7 +135,6 @@ class __$AddressModelCopyWithImpl<$Res> extends _$AddressModelCopyWithImpl<$Res>
     Object geo = freezed,
   }) {
     return _then(_AddressModel(
-      id: id == freezed ? _value.id : id as int,
       street: street == freezed ? _value.street : street as String,
       suite: suite == freezed ? _value.suite : suite as String,
       city: city == freezed ? _value.city : city as String,
@@ -166,14 +149,12 @@ class __$AddressModelCopyWithImpl<$Res> extends _$AddressModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_AddressModel implements _AddressModel {
   const _$_AddressModel(
-      {@required this.id,
-      @required this.street,
+      {@required this.street,
       @required this.suite,
       @required this.city,
       @required this.zipcode,
       @required this.geo})
-      : assert(id != null),
-        assert(street != null),
+      : assert(street != null),
         assert(suite != null),
         assert(city != null),
         assert(zipcode != null),
@@ -182,8 +163,6 @@ class _$_AddressModel implements _AddressModel {
   factory _$_AddressModel.fromJson(Map<String, dynamic> json) =>
       _$_$_AddressModelFromJson(json);
 
-  @override
-  final int id;
   @override
   final String street;
   @override
@@ -197,15 +176,13 @@ class _$_AddressModel implements _AddressModel {
 
   @override
   String toString() {
-    return 'AddressModel(id: $id, street: $street, suite: $suite, city: $city, zipcode: $zipcode, geo: $geo)';
+    return 'AddressModel(street: $street, suite: $suite, city: $city, zipcode: $zipcode, geo: $geo)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AddressModel &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.street, street) ||
                 const DeepCollectionEquality().equals(other.street, street)) &&
             (identical(other.suite, suite) ||
@@ -222,7 +199,6 @@ class _$_AddressModel implements _AddressModel {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(street) ^
       const DeepCollectionEquality().hash(suite) ^
       const DeepCollectionEquality().hash(city) ^
@@ -242,8 +218,7 @@ class _$_AddressModel implements _AddressModel {
 
 abstract class _AddressModel implements AddressModel {
   const factory _AddressModel(
-      {@required int id,
-      @required String street,
+      {@required String street,
       @required String suite,
       @required String city,
       @required String zipcode,
@@ -252,8 +227,6 @@ abstract class _AddressModel implements AddressModel {
   factory _AddressModel.fromJson(Map<String, dynamic> json) =
       _$_AddressModel.fromJson;
 
-  @override
-  int get id;
   @override
   String get street;
   @override

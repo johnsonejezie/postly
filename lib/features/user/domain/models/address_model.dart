@@ -9,7 +9,6 @@ part 'address_model.g.dart';
 @freezed
 abstract class AddressModel with _$AddressModel {
   const factory AddressModel({
-    @required int id,
     @required String street,
     @required String suite,
     @required String city,
