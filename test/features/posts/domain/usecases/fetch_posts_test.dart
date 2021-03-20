@@ -1,9 +1,10 @@
 import 'package:Postly/core/failures.dart';
-import 'package:Postly/features/posts/domain/models/post_model.dart';
 import 'package:Postly/features/posts/domain/repositories/posts_repository.dart';
 import 'package:Postly/features/posts/domain/usecases/fetch_posts.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+
+import '../../fixtures/posts_data.dart';
 
 class MockPostsRepository extends Mock implements PostsRepository {}
 
@@ -12,23 +13,28 @@ void main() {
 
   MockPostsRepository repository;
 
-  final List<PostModel> _posts = [
-    const PostModel(id: 1, userId: 1, title: '1', body: '1'),
-    const PostModel(id: 2, userId: 2, title: '2', body: '2'),
-  ];
-
   setUp(() {
     repository = MockPostsRepository();
     testSubject = FetchPosts(repository);
   });
 
+  test('fetchPosts calls PostsRepository\'s fetchPosts', () {
+    testSubject();
+
+    verify(repository.fetchPosts());
+    verifyNoMoreInteractions(repository);
+
+    // Need this to reset the interactions on mocked object
+    clearInteractions(repository);
+  });
+
   test('fetchPosts returns a list of posts from sever', () async {
-    when(repository.fetchPosts()).thenAnswer((_) async => _posts);
+    when(repository.fetchPosts()).thenAnswer((_) async => postsSample);
 
     final result = await testSubject();
 
     expect(result.isRight(), true);
-    result.fold(null, (r) => expect(r, _posts));
+    result.fold(null, (r) => expect(r, postsSample));
   });
 
   // Test failures too

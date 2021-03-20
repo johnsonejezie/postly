@@ -10,7 +10,7 @@ class PostsRepositoryImpl implements PostsRepository {
 
   @override
   Future<List<PostModel>> fetchPosts() async {
-    final res = await guardedCacheAccess<List<PostModel>>(_remoteDatasource.fetchPosts);
+    final res = await guardedApiCall<List<PostModel>>(_remoteDatasource.fetchPosts);
     return res;
   }
 }
