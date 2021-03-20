@@ -20,49 +20,49 @@ class SizeConfig {
   TextStyle get h5Theme => Theme.of(context)
       .textTheme
       .headline5
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.headline5.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.headline5.fontSize));
 
   TextStyle get h4Theme => Theme.of(context)
       .textTheme
       .headline4
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.headline4.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.headline4.fontSize));
 
   TextStyle get h3Theme => Theme.of(context)
       .textTheme
       .headline3
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.headline3.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.headline3.fontSize));
 
   TextStyle get h2Theme => Theme.of(context)
       .textTheme
       .headline2
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.headline2.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.headline2.fontSize));
 
   TextStyle get h1Theme => Theme.of(context)
       .textTheme
       .headline1
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.headline1.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.headline1.fontSize));
 
   TextStyle get body2Theme => Theme.of(context)
       .textTheme
       .bodyText2
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.bodyText2.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.bodyText2.fontSize));
 
   TextStyle get body1Theme => Theme.of(context)
       .textTheme
       .bodyText1
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.bodyText1.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.bodyText1.fontSize));
 
   TextStyle get subtitle1Theme => Theme.of(context)
       .textTheme
       .subtitle1
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.subtitle1.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.subtitle1.fontSize));
 
   TextStyle get buttonTextTheme => Theme.of(context)
       .textTheme
       .button
-      .copyWith(fontSize: heightScaledSize(Theme.of(context).textTheme.button.fontSize));
+      .copyWith(fontSize: screenScaledSize(Theme.of(context).textTheme.button.fontSize));
 
-  double heightScaledSize(double size) {
+  double screenScaledSize(double size) {
     if (size == null) return null;
     if (screenHeight >= 700 && screenWidth >= 400) {
       return size;

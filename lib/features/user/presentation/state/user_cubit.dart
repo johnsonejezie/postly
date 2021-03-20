@@ -1,5 +1,7 @@
+import 'package:Postly/features/user/data/datasources/user_local_datasource.dart';
 import 'package:Postly/features/user/domain/models/user_model.dart';
 import 'package:Postly/features/user/domain/usecases/fetch_user.dart';
+import 'package:Postly/features/user/domain/user_module_injector.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -17,7 +19,13 @@ class UserCubit extends HydratedCubit<UserState> {
     ),
   );
 
-  UserCubit(this._fetchUser) : super(_initialUserState);
+  UserCubit(this._fetchUser) : super(_initialUserState) {
+    UserModuleInjector.resolve<UserLocalDatasource>().userPointsStreamController.stream.listen((reset) {
+      emit(
+        state.copyWith.payload.user(points: reset ? 0 : state.payload.user.points + 2),
+      );
+    });
+  }
 
   Future<void> fetchUser() async {
     if (state.payload.user != null) {

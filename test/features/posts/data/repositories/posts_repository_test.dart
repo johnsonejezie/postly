@@ -2,6 +2,7 @@ import 'package:Postly/core/data/network/network_service_impl.dart';
 import 'package:Postly/core/failures.dart';
 import 'package:Postly/features/posts/data/datasources/posts_remote_datasource.dart';
 import 'package:Postly/features/posts/data/repositories/posts_repository_impl.dart';
+import 'package:Postly/features/user/data/datasources/user_local_datasource.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -9,12 +10,15 @@ import '../../fixtures/posts_data.dart';
 
 class MockRemoteDataSource extends Mock implements PostsRemoteDatasource {}
 
+class MockUserLocalDataSource extends Mock implements UserLocalDatasource {}
+
 void main() {
   PostsRepositoryImpl testSubject;
   final remoteDatasource = MockRemoteDataSource();
+  final userLocalDataSource = MockUserLocalDataSource();
 
   setUp(() {
-    testSubject = PostsRepositoryImpl(remoteDatasource);
+    testSubject = PostsRepositoryImpl(remoteDatasource, userLocalDataSource);
   });
 
   group('fetchPosts', () {
@@ -45,15 +49,29 @@ void main() {
   });
 
   group('createPost', () {
-    test(' calls remoteDatasource\'s createPost', () {
-      clearInteractions(remoteDatasource);
-      testSubject.createPost(newPost);
+    group(' successful call', () {
+      test(' calls remoteDatasource\'s createPost', () {
+        clearInteractions(remoteDatasource);
+        testSubject.createPost(newPost);
 
-      verify(remoteDatasource.createPost(newPost));
-      verifyNoMoreInteractions(remoteDatasource);
+        verify(remoteDatasource.createPost(newPost));
+        verifyNoMoreInteractions(remoteDatasource);
 
-      // Need this to reset the interactions on mocked object
-      clearInteractions(remoteDatasource);
+        // Need this to reset the interactions on mocked object
+        clearInteractions(remoteDatasource);
+        clearInteractions(userLocalDataSource);
+      });
+
+      test(' calls userLocalDataSource\'s updateUserPoints', () async {
+        await testSubject.createPost(newPost);
+
+        verify(userLocalDataSource.updateUserPoints());
+
+        verifyNoMoreInteractions(userLocalDataSource);
+
+        clearInteractions(remoteDatasource);
+        clearInteractions(userLocalDataSource);
+      });
     });
 
     group('Error handling', () {

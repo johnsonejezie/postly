@@ -14,6 +14,7 @@ _$_UserModel _$_$_UserModelFromJson(Map<String, dynamic> json) {
     address: json['address'] == null
         ? null
         : AddressModel.fromJson(json['address'] as Map<String, dynamic>),
+    points: json['points'] as int ?? 0,
   );
 }
 
@@ -23,4 +24,5 @@ Map<String, dynamic> _$_$_UserModelToJson(_$_UserModel instance) =>
       'name': instance.name,
       'username': instance.username,
       'address': instance.address?.toJson(),
+      'points': instance.points,
     };

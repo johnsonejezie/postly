@@ -12,7 +12,7 @@ class _$PostsModuleInjector extends PostsModuleInjector {
     final KiwiContainer container = KiwiContainer();
     container.registerFactory<PostsRemoteDatasource>(
         (c) => PostsRemoteDatasourceImpl(c<NetworkService>()));
-    container.registerFactory<PostsRepository>(
-        (c) => PostsRepositoryImpl(c<PostsRemoteDatasource>()));
+    container.registerFactory<PostsRepository>((c) => PostsRepositoryImpl(
+        c<PostsRemoteDatasource>(), c<UserLocalDatasource>()));
   }
 }

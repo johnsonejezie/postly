@@ -13,6 +13,7 @@ abstract class UserModel with _$UserModel {
     @required String name,
     @required String username,
     @required AddressModel address,
+    @Default(0) int points,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map json) => _$UserModelFromJson(Map.castFrom<dynamic, dynamic, String, dynamic>(json));
