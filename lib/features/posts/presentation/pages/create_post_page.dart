@@ -70,7 +70,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 hintText: "Body",
                 hintStyle: TextStyle(color: AppColors.grey),
               ),
-            )
+            ),
+            SizedBox(height: sc.screenScaledSize(100)),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Cancel"),
+            ),
           ]),
         ),
       ),
