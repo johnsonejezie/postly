@@ -13,6 +13,7 @@ const UserModel userModel = UserModel(
     zipcode: '92998-3874',
     geo: GeoModel(lat: '-37.3159', lng: '81.1496'),
   ),
+  points: 0,
 );
 
 const userJson = <String, dynamic>{
@@ -25,5 +26,6 @@ const userJson = <String, dynamic>{
     "city": "Gwenborough",
     "zipcode": "92998-3874",
     "geo": {"lat": "-37.3159", "lng": "81.1496"},
-  }
+  },
+  "points": 0,
 };
