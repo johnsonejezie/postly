@@ -42,12 +42,14 @@ class PostsHome extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "  Hi, ${payload.user.username}",
-                        style: sc.h4Theme,
+                      Flexible(
+                        child: Text(
+                          "  Hi, ${payload.user.username}",
+                          style: sc.h4Theme,
+                        ),
                       ),
                       Text(
-                        "${payload.user.points < 6 ? 'Beginner' : payload.user.points < 10 ? 'Intermediate' : payload.user.points < 17 ? 'Professional' : 'Legend'}",
+                        "${payload.user.points < 6 ? 'Beginner' : payload.user.points < 10 ? 'Intermediate' : payload.user.points < 17 ? 'Professional' : 'Legend'} (${payload.user.points})",
                       ),
                     ],
                   ),
