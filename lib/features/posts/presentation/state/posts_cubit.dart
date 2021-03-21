@@ -32,7 +32,7 @@ class PostsCubit extends HydratedCubit<PostsState> {
   }
 
   Future<void> createPost(PostModel post) async {
-    emit(PostsState.loading(payload: state.payload.copyWith()));
+    emit(PostsState.creatingPost(payload: state.payload.copyWith()));
     final res = await _createPost(post);
 
     res.fold(

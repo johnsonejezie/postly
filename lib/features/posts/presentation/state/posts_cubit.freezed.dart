@@ -16,6 +16,8 @@ PostsState _$PostsStateFromJson(Map<String, dynamic> json) {
       return _LoadingPostsState.fromJson(json);
     case 'loaded':
       return _LoadedPostsState.fromJson(json);
+    case 'creatingPost':
+      return _CreatingPostPostsState.fromJson(json);
     case 'postCreated':
       return _PostCreatedPostsState.fromJson(json);
     case 'error':
@@ -47,6 +49,13 @@ class _$PostsStateTearOff {
 // ignore: unused_element
   _LoadedPostsState loaded({@required PostsStatePayload payload}) {
     return _LoadedPostsState(
+      payload: payload,
+    );
+  }
+
+// ignore: unused_element
+  _CreatingPostPostsState creatingPost({@required PostsStatePayload payload}) {
+    return _CreatingPostPostsState(
       payload: payload,
     );
   }
@@ -84,6 +93,7 @@ mixin _$PostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult creatingPost(PostsStatePayload payload),
     @required TResult postCreated(PostsStatePayload payload),
     @required TResult error(PostsStatePayload payload),
   });
@@ -92,6 +102,7 @@ mixin _$PostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult creatingPost(PostsStatePayload payload),
     TResult postCreated(PostsStatePayload payload),
     TResult error(PostsStatePayload payload),
     @required TResult orElse(),
@@ -101,6 +112,7 @@ mixin _$PostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult creatingPost(_CreatingPostPostsState value),
     @required TResult postCreated(_PostCreatedPostsState value),
     @required TResult error(_ErrorPostsState value),
   });
@@ -109,6 +121,7 @@ mixin _$PostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult creatingPost(_CreatingPostPostsState value),
     TResult postCreated(_PostCreatedPostsState value),
     TResult error(_ErrorPostsState value),
     @required TResult orElse(),
@@ -233,12 +246,14 @@ class _$_InitialPostsState implements _InitialPostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult creatingPost(PostsStatePayload payload),
     @required TResult postCreated(PostsStatePayload payload),
     @required TResult error(PostsStatePayload payload),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return initial(payload);
@@ -250,6 +265,7 @@ class _$_InitialPostsState implements _InitialPostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult creatingPost(PostsStatePayload payload),
     TResult postCreated(PostsStatePayload payload),
     TResult error(PostsStatePayload payload),
     @required TResult orElse(),
@@ -267,12 +283,14 @@ class _$_InitialPostsState implements _InitialPostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult creatingPost(_CreatingPostPostsState value),
     @required TResult postCreated(_PostCreatedPostsState value),
     @required TResult error(_ErrorPostsState value),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return initial(this);
@@ -284,6 +302,7 @@ class _$_InitialPostsState implements _InitialPostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult creatingPost(_CreatingPostPostsState value),
     TResult postCreated(_PostCreatedPostsState value),
     TResult error(_ErrorPostsState value),
     @required TResult orElse(),
@@ -391,12 +410,14 @@ class _$_LoadingPostsState implements _LoadingPostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult creatingPost(PostsStatePayload payload),
     @required TResult postCreated(PostsStatePayload payload),
     @required TResult error(PostsStatePayload payload),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return loading(payload);
@@ -408,6 +429,7 @@ class _$_LoadingPostsState implements _LoadingPostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult creatingPost(PostsStatePayload payload),
     TResult postCreated(PostsStatePayload payload),
     TResult error(PostsStatePayload payload),
     @required TResult orElse(),
@@ -425,12 +447,14 @@ class _$_LoadingPostsState implements _LoadingPostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult creatingPost(_CreatingPostPostsState value),
     @required TResult postCreated(_PostCreatedPostsState value),
     @required TResult error(_ErrorPostsState value),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return loading(this);
@@ -442,6 +466,7 @@ class _$_LoadingPostsState implements _LoadingPostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult creatingPost(_CreatingPostPostsState value),
     TResult postCreated(_PostCreatedPostsState value),
     TResult error(_ErrorPostsState value),
     @required TResult orElse(),
@@ -548,12 +573,14 @@ class _$_LoadedPostsState implements _LoadedPostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult creatingPost(PostsStatePayload payload),
     @required TResult postCreated(PostsStatePayload payload),
     @required TResult error(PostsStatePayload payload),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return loaded(payload);
@@ -565,6 +592,7 @@ class _$_LoadedPostsState implements _LoadedPostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult creatingPost(PostsStatePayload payload),
     TResult postCreated(PostsStatePayload payload),
     TResult error(PostsStatePayload payload),
     @required TResult orElse(),
@@ -582,12 +610,14 @@ class _$_LoadedPostsState implements _LoadedPostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult creatingPost(_CreatingPostPostsState value),
     @required TResult postCreated(_PostCreatedPostsState value),
     @required TResult error(_ErrorPostsState value),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return loaded(this);
@@ -599,6 +629,7 @@ class _$_LoadedPostsState implements _LoadedPostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult creatingPost(_CreatingPostPostsState value),
     TResult postCreated(_PostCreatedPostsState value),
     TResult error(_ErrorPostsState value),
     @required TResult orElse(),
@@ -628,6 +659,172 @@ abstract class _LoadedPostsState implements PostsState {
   @override
   @JsonKey(ignore: true)
   _$LoadedPostsStateCopyWith<_LoadedPostsState> get copyWith;
+}
+
+/// @nodoc
+abstract class _$CreatingPostPostsStateCopyWith<$Res>
+    implements $PostsStateCopyWith<$Res> {
+  factory _$CreatingPostPostsStateCopyWith(_CreatingPostPostsState value,
+          $Res Function(_CreatingPostPostsState) then) =
+      __$CreatingPostPostsStateCopyWithImpl<$Res>;
+  @override
+  $Res call({PostsStatePayload payload});
+
+  @override
+  $PostsStatePayloadCopyWith<$Res> get payload;
+}
+
+/// @nodoc
+class __$CreatingPostPostsStateCopyWithImpl<$Res>
+    extends _$PostsStateCopyWithImpl<$Res>
+    implements _$CreatingPostPostsStateCopyWith<$Res> {
+  __$CreatingPostPostsStateCopyWithImpl(_CreatingPostPostsState _value,
+      $Res Function(_CreatingPostPostsState) _then)
+      : super(_value, (v) => _then(v as _CreatingPostPostsState));
+
+  @override
+  _CreatingPostPostsState get _value => super._value as _CreatingPostPostsState;
+
+  @override
+  $Res call({
+    Object payload = freezed,
+  }) {
+    return _then(_CreatingPostPostsState(
+      payload:
+          payload == freezed ? _value.payload : payload as PostsStatePayload,
+    ));
+  }
+}
+
+@JsonSerializable()
+
+/// @nodoc
+class _$_CreatingPostPostsState implements _CreatingPostPostsState {
+  const _$_CreatingPostPostsState({@required this.payload})
+      : assert(payload != null);
+
+  factory _$_CreatingPostPostsState.fromJson(Map<String, dynamic> json) =>
+      _$_$_CreatingPostPostsStateFromJson(json);
+
+  @override
+  final PostsStatePayload payload;
+
+  @override
+  String toString() {
+    return 'PostsState.creatingPost(payload: $payload)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CreatingPostPostsState &&
+            (identical(other.payload, payload) ||
+                const DeepCollectionEquality().equals(other.payload, payload)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(payload);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CreatingPostPostsStateCopyWith<_CreatingPostPostsState> get copyWith =>
+      __$CreatingPostPostsStateCopyWithImpl<_CreatingPostPostsState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult initial(PostsStatePayload payload),
+    @required TResult loading(PostsStatePayload payload),
+    @required TResult loaded(PostsStatePayload payload),
+    @required TResult creatingPost(PostsStatePayload payload),
+    @required TResult postCreated(PostsStatePayload payload),
+    @required TResult error(PostsStatePayload payload),
+  }) {
+    assert(initial != null);
+    assert(loading != null);
+    assert(loaded != null);
+    assert(creatingPost != null);
+    assert(postCreated != null);
+    assert(error != null);
+    return creatingPost(payload);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult initial(PostsStatePayload payload),
+    TResult loading(PostsStatePayload payload),
+    TResult loaded(PostsStatePayload payload),
+    TResult creatingPost(PostsStatePayload payload),
+    TResult postCreated(PostsStatePayload payload),
+    TResult error(PostsStatePayload payload),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (creatingPost != null) {
+      return creatingPost(payload);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult initial(_InitialPostsState value),
+    @required TResult loading(_LoadingPostsState value),
+    @required TResult loaded(_LoadedPostsState value),
+    @required TResult creatingPost(_CreatingPostPostsState value),
+    @required TResult postCreated(_PostCreatedPostsState value),
+    @required TResult error(_ErrorPostsState value),
+  }) {
+    assert(initial != null);
+    assert(loading != null);
+    assert(loaded != null);
+    assert(creatingPost != null);
+    assert(postCreated != null);
+    assert(error != null);
+    return creatingPost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult initial(_InitialPostsState value),
+    TResult loading(_LoadingPostsState value),
+    TResult loaded(_LoadedPostsState value),
+    TResult creatingPost(_CreatingPostPostsState value),
+    TResult postCreated(_PostCreatedPostsState value),
+    TResult error(_ErrorPostsState value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (creatingPost != null) {
+      return creatingPost(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CreatingPostPostsStateToJson(this)
+      ..['runtimeType'] = 'creatingPost';
+  }
+}
+
+abstract class _CreatingPostPostsState implements PostsState {
+  const factory _CreatingPostPostsState({@required PostsStatePayload payload}) =
+      _$_CreatingPostPostsState;
+
+  factory _CreatingPostPostsState.fromJson(Map<String, dynamic> json) =
+      _$_CreatingPostPostsState.fromJson;
+
+  @override
+  PostsStatePayload get payload;
+  @override
+  @JsonKey(ignore: true)
+  _$CreatingPostPostsStateCopyWith<_CreatingPostPostsState> get copyWith;
 }
 
 /// @nodoc
@@ -707,12 +904,14 @@ class _$_PostCreatedPostsState implements _PostCreatedPostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult creatingPost(PostsStatePayload payload),
     @required TResult postCreated(PostsStatePayload payload),
     @required TResult error(PostsStatePayload payload),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return postCreated(payload);
@@ -724,6 +923,7 @@ class _$_PostCreatedPostsState implements _PostCreatedPostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult creatingPost(PostsStatePayload payload),
     TResult postCreated(PostsStatePayload payload),
     TResult error(PostsStatePayload payload),
     @required TResult orElse(),
@@ -741,12 +941,14 @@ class _$_PostCreatedPostsState implements _PostCreatedPostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult creatingPost(_CreatingPostPostsState value),
     @required TResult postCreated(_PostCreatedPostsState value),
     @required TResult error(_ErrorPostsState value),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return postCreated(this);
@@ -758,6 +960,7 @@ class _$_PostCreatedPostsState implements _PostCreatedPostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult creatingPost(_CreatingPostPostsState value),
     TResult postCreated(_PostCreatedPostsState value),
     TResult error(_ErrorPostsState value),
     @required TResult orElse(),
@@ -865,12 +1068,14 @@ class _$_ErrorPostsState implements _ErrorPostsState {
     @required TResult initial(PostsStatePayload payload),
     @required TResult loading(PostsStatePayload payload),
     @required TResult loaded(PostsStatePayload payload),
+    @required TResult creatingPost(PostsStatePayload payload),
     @required TResult postCreated(PostsStatePayload payload),
     @required TResult error(PostsStatePayload payload),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return error(payload);
@@ -882,6 +1087,7 @@ class _$_ErrorPostsState implements _ErrorPostsState {
     TResult initial(PostsStatePayload payload),
     TResult loading(PostsStatePayload payload),
     TResult loaded(PostsStatePayload payload),
+    TResult creatingPost(PostsStatePayload payload),
     TResult postCreated(PostsStatePayload payload),
     TResult error(PostsStatePayload payload),
     @required TResult orElse(),
@@ -899,12 +1105,14 @@ class _$_ErrorPostsState implements _ErrorPostsState {
     @required TResult initial(_InitialPostsState value),
     @required TResult loading(_LoadingPostsState value),
     @required TResult loaded(_LoadedPostsState value),
+    @required TResult creatingPost(_CreatingPostPostsState value),
     @required TResult postCreated(_PostCreatedPostsState value),
     @required TResult error(_ErrorPostsState value),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
+    assert(creatingPost != null);
     assert(postCreated != null);
     assert(error != null);
     return error(this);
@@ -916,6 +1124,7 @@ class _$_ErrorPostsState implements _ErrorPostsState {
     TResult initial(_InitialPostsState value),
     TResult loading(_LoadingPostsState value),
     TResult loaded(_LoadedPostsState value),
+    TResult creatingPost(_CreatingPostPostsState value),
     TResult postCreated(_PostCreatedPostsState value),
     TResult error(_ErrorPostsState value),
     @required TResult orElse(),

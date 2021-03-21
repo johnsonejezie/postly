@@ -48,6 +48,21 @@ Map<String, dynamic> _$_$_LoadedPostsStateToJson(
       'payload': instance.payload?.toJson(),
     };
 
+_$_CreatingPostPostsState _$_$_CreatingPostPostsStateFromJson(
+    Map<String, dynamic> json) {
+  return _$_CreatingPostPostsState(
+    payload: json['payload'] == null
+        ? null
+        : PostsStatePayload.fromJson(json['payload'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$_$_CreatingPostPostsStateToJson(
+        _$_CreatingPostPostsState instance) =>
+    <String, dynamic>{
+      'payload': instance.payload?.toJson(),
+    };
+
 _$_PostCreatedPostsState _$_$_PostCreatedPostsStateFromJson(
     Map<String, dynamic> json) {
   return _$_PostCreatedPostsState(

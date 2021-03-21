@@ -88,7 +88,7 @@ Future<void> main() async {
     });
 
     group("create post", () {
-      test(' emits loading, then postCreated, with new post inserted', () async {
+      test(' emits creatingPost, then postCreated, with new post inserted', () async {
         final cubit = PostsCubit(_fetchPosts, _createPost);
 
         // Simulate pre-loaded posts
@@ -98,7 +98,7 @@ Future<void> main() async {
         expectLater(
             cubit,
             emitsInOrder(<PostsState>[
-              PostsState.loading(payload: cubit.state.payload.copyWith(posts: postsSample)),
+              PostsState.creatingPost(payload: cubit.state.payload.copyWith(posts: postsSample)),
               PostsState.postCreated(payload: cubit.state.payload.copyWith(posts: [newPost, ...postsSample])),
             ]));
 
@@ -107,7 +107,7 @@ Future<void> main() async {
         verify(_createPost.call(newPost));
       });
 
-      test(' emits loading, then error, with error message, if something goes wrong', () async {
+      test(' emits creatingPost, then error, with error message, if something goes wrong', () async {
         final cubit = PostsCubit(_fetchPosts, _createPost);
 
         when(_createPost.call(any)).thenAnswer((_) async => const Left(UIError('error')));
@@ -116,7 +116,7 @@ Future<void> main() async {
         expectLater(
             cubit,
             emitsInOrder(<PostsState>[
-              PostsState.loading(payload: cubit.state.payload.copyWith(posts: [])),
+              PostsState.creatingPost(payload: cubit.state.payload.copyWith(posts: [])),
               PostsState.error(payload: cubit.state.payload.copyWith(error: 'error')),
             ]));
 
