@@ -13,6 +13,7 @@ class PostsHome extends StatelessWidget {
 
   Future<void> _showLegendaryDialog(BuildContext context) async => showModalBottomSheet(
         context: context,
+        isDismissible: false,
         backgroundColor: Colors.transparent,
         builder: (_) => const PostlyLegendBottomsheet(),
       );

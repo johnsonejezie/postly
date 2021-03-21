@@ -31,7 +31,7 @@ class _PostlyLegendBottomsheetState extends State<PostlyLegendBottomsheet> {
               style: _sc.h4Theme,
             ),
           ),
-          SizedBox(height: _sc.screenScaledSize(20)),
+          const Spacer(),
           Expanded(
             child: Text(
               "You are a postly legend",

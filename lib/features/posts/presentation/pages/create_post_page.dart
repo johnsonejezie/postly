@@ -15,7 +15,14 @@ class CreatePostPage extends StatefulWidget {
 
 class _CreatePostPageState extends State<CreatePostPage> {
   TextEditingController titleController = TextEditingController();
+  FocusNode titleNode = FocusNode();
   TextEditingController bodyController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    titleNode.requestFocus();
+  }
 
   bool get canCreate => titleController.text.isNotEmpty && bodyController.text.isNotEmpty;
 
@@ -55,6 +62,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             SizedBox(height: sc.screenScaledSize(150)),
             TextFormField(
               controller: titleController,
+              focusNode: titleNode,
               onChanged: (_) => setState(() {}),
               decoration: const InputDecoration(
                 hintText: "Title",
