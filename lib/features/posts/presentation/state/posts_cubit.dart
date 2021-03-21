@@ -1,3 +1,4 @@
+import 'package:Postly/features/posts/domain/usecases/create_post.dart';
 import 'package:Postly/features/posts/domain/usecases/fetch_posts.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -9,6 +10,7 @@ part 'posts_state.dart';
 
 class PostsCubit extends HydratedCubit<PostsState> {
   final FetchPosts _fetchPosts;
+  final CreatePost _createPost;
 
   static const _initialPostsState = PostsState.initial(
     payload: PostsStatePayload(
@@ -17,7 +19,7 @@ class PostsCubit extends HydratedCubit<PostsState> {
     ),
   );
 
-  PostsCubit(this._fetchPosts) : super(_initialPostsState);
+  PostsCubit(this._fetchPosts, this._createPost) : super(_initialPostsState);
 
   Future<void> fetchPosts() async {
     emit(PostsState.loading(payload: state.payload.copyWith()));
@@ -26,6 +28,20 @@ class PostsCubit extends HydratedCubit<PostsState> {
     res.fold(
       (l) => emit(PostsState.error(payload: state.payload.copyWith(error: l.message))),
       (r) => emit(PostsState.loaded(payload: state.payload.copyWith(posts: r))),
+    );
+  }
+
+  Future<void> createPost(PostModel post) async {
+    emit(PostsState.loading(payload: state.payload.copyWith()));
+    final res = await _createPost(post);
+
+    res.fold(
+      (l) => emit(PostsState.error(payload: state.payload.copyWith(error: l.message))),
+      (r) => emit(PostsState.postCreated(
+        payload: state.payload.copyWith(
+          posts: [post, ...state.payload.posts],
+        ),
+      )),
     );
   }
 
