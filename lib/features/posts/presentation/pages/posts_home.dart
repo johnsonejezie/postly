@@ -1,4 +1,6 @@
 import 'package:Postly/core/platform/size_config.dart';
+import 'package:Postly/features/posts/presentation/state/posts_cubit.dart';
+import 'package:Postly/features/posts/presentation/widgets/posts_list.dart';
 import 'package:Postly/features/user/presentation/state/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,20 +14,35 @@ class PostsHome extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<UserCubit, UserState>(
-          builder: (_, state) => state.maybeWhen(
-            loading: (_) => const CircularProgressIndicator(),
-            loaded: (payload) => Container(
-              padding: EdgeInsets.all(sc.screenScaledSize(20)),
-              child: Column(children: [
-                Text(
-                  "Hi, ${payload.user.username}",
-                  style: sc.h4Theme,
+        child: Column(
+          children: [
+            BlocBuilder<UserCubit, UserState>(
+              builder: (_, state) => state.maybeWhen(
+                loading: (_) => const CircularProgressIndicator(),
+                loaded: (payload) => Container(
+                  padding: EdgeInsets.all(sc.screenScaledSize(20)),
+                  child: Column(children: [
+                    Text(
+                      "Hi, ${payload.user.username}",
+                      style: sc.h4Theme,
+                    ),
+                  ]),
                 ),
-              ]),
+                orElse: () => const SizedBox(),
+              ),
             ),
-            orElse: () => const SizedBox(),
-          ),
+
+            // POSTS
+            Expanded(
+              child: BlocBuilder<PostsCubit, PostsState>(
+                builder: (_, state) => state.maybeWhen(
+                  loading: (_) => const Center(child: CircularProgressIndicator()),
+                  loaded: (payload) => PostsList(posts: payload.posts),
+                  orElse: () => const SizedBox(),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

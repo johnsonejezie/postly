@@ -8,7 +8,9 @@ import 'package:Postly/features/user/presentation/state/user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 final providers = [
-  BlocProvider<PostsCubit>(create: (_) => PostsCubit(PostsModuleInjector.resolve<FetchPosts>())),
+  BlocProvider<PostsCubit>(
+    create: (_) => PostsCubit(PostsModuleInjector.resolve<FetchPosts>())..fetchPosts(),
+  ),
   BlocProvider<UserCubit>(
     create: (_) => UserCubit(
       UserModuleInjector.resolve<FetchUser>(),
