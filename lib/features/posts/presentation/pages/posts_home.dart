@@ -21,12 +21,19 @@ class PostsHome extends StatelessWidget {
                 loading: (_) => const CircularProgressIndicator(),
                 loaded: (payload) => Container(
                   padding: EdgeInsets.all(sc.screenScaledSize(20)),
-                  child: Column(children: [
-                    Text(
-                      "Hi, ${payload.user.username}",
-                      style: sc.h4Theme,
-                    ),
-                  ]),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "  Hi, ${payload.user.username}",
+                        style: sc.h4Theme,
+                      ),
+                      Text(
+                        "${payload.user.points < 6 ? 'Beginner' : payload.user.points < 10 ? 'Intermediate' : payload.user.points < 17 ? 'Professional' : 'Legend'}",
+                      ),
+                    ],
+                  ),
                 ),
                 orElse: () => const SizedBox(),
               ),
