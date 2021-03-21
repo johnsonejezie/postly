@@ -5,6 +5,8 @@ import 'package:Postly/features/user/presentation/state/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'create_post.dart';
+
 class PostsHome extends StatelessWidget {
   const PostsHome({Key key}) : super(key: key);
 
@@ -13,6 +15,15 @@ class PostsHome extends StatelessWidget {
     final sc = SizeConfig(context: context);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => const CreatePost()),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        label: const Text("Create post"),
+      ),
       body: SafeArea(
         child: Column(
           children: [

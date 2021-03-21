@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const primaryColor = Color(0xff00AAAA);
-  static const accent = Color(0xffFFCB5E);
+  static const accent = Color(0xff00AAAA);
+  static const primaryColor = Color(0xffaa7003);
   static const grey = Color(0xff6D7890);
   static const greyDark = Color(0xff303F4C);
   static const error = Color(0xffFF5E5E);
@@ -34,5 +34,17 @@ final ThemeData appThemeLight = ThemeData(
     hintColor: AppColors.accent,
     errorColor: AppColors.error,
     textTheme: const TextTheme(
-      headline5: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      headline4: TextStyle(
+        color: AppColors.accent,
+        fontWeight: FontWeight.bold,
+      ),
+      headline5: TextStyle(
+        color: AppColors.primaryColor,
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
+      bodyText2: TextStyle(
+        color: AppColors.greyDark,
+        fontSize: 14,
+      ),
     ));

@@ -22,14 +22,16 @@ class PostItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "${position ?? ''}${position != null ? ': ' : ''}${post.title}",
+            "${position ?? ''}${position != null ? '. ' : ''}${post.title}",
             style: _sc.h5Theme,
           ),
           SizedBox(height: _sc.screenScaledSize(10)),
           Text(
             "${post.body}",
             style: _sc.body2Theme,
-          )
+          ),
+          SizedBox(height: _sc.screenScaledSize(20)),
+          const Divider(),
         ],
       ),
     );
