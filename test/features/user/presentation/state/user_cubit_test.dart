@@ -1,4 +1,7 @@
+import 'package:Postly/core/di/configure_dependencies.dart';
 import 'package:Postly/core/failures.dart';
+import 'package:Postly/core/usecase_typedefs.dart';
+import 'package:Postly/features/user/domain/usecases/reset_points.dart';
 import 'package:Postly/features/user/presentation/state/user_cubit.dart';
 import 'package:Postly/features/user/domain/usecases/fetch_user.dart';
 import 'package:dartz/dartz.dart';
@@ -11,20 +14,25 @@ import '../../fixtures/user_data.dart';
 
 class MockFetchUser extends Mock implements FetchUser {}
 
+class MockResetPoints extends Mock implements ResetPoints {}
+
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   HydratedCubit.storage = FakeHydratedStorage();
+  configureDependencies();
 
   final _fetchUser = MockFetchUser();
+  final _resetPoints = MockResetPoints();
 
   // Mock Usecase Responses
   when(_fetchUser.call(any)).thenAnswer((_) async => const Right(userModel));
+  when(_resetPoints.call(any)).thenAnswer((_) async => const Right(VoidType()));
 
   group('User Cubit', () {
     test(
       'Initial behaviour: UserCubit is initialised with null user and empty error',
       () {
-        final cubit = UserCubit(_fetchUser);
+        final cubit = UserCubit(_fetchUser, _resetPoints);
         expect(cubit.state.payload.user, null);
         expect(cubit.state.payload.error, '');
       },
@@ -33,7 +41,7 @@ Future<void> main() async {
     test(
       'UserCubit fromJson returns a valid UserState, even with badly formed data',
       () {
-        final cubit = UserCubit(_fetchUser);
+        final cubit = UserCubit(_fetchUser, _resetPoints);
         expect(cubit.fromJson({}), isA<UserState>());
         expect(
           cubit.fromJson({'wrong': 'data'}),
@@ -42,43 +50,83 @@ Future<void> main() async {
       },
     );
 
-    test(
-        'UserCubit fetchUser emits loading, then loaded, with payload populated with returned data; and does not work anymore for further calls',
-        () async {
-      final cubit = UserCubit(_fetchUser);
+    group("UserCubit fetchUser", () {
+      test(
+          ' emits loading, then loaded, with payload populated with returned data; and does not work anymore for further calls',
+          () async {
+        final cubit = UserCubit(_fetchUser, _resetPoints);
 
-      // ignore: unawaited_futures
-      expectLater(
-          cubit,
-          emitsInOrder(<UserState>[
-            UserState.loading(payload: cubit.state.payload.copyWith(user: null)),
-            UserState.loaded(payload: cubit.state.payload.copyWith(user: userModel)),
-          ]));
+        // ignore: unawaited_futures
+        expectLater(
+            cubit,
+            emitsInOrder(<UserState>[
+              UserState.loading(payload: cubit.state.payload.copyWith(user: null)),
+              UserState.loaded(payload: cubit.state.payload.copyWith(user: userModel)),
+            ]));
 
-      await cubit.fetchUser();
-      verify(_fetchUser.call());
+        await cubit.fetchUser();
+        verify(_fetchUser.call());
 
-      clearInteractions(_fetchUser);
-      await cubit.fetchUser();
-      verifyZeroInteractions(_fetchUser);
+        clearInteractions(_fetchUser);
+        await cubit.fetchUser();
+        verifyZeroInteractions(_fetchUser);
+      });
+
+      test(' emits loading, then error, with error message, if something goes wrong', () async {
+        final cubit = UserCubit(_fetchUser, _resetPoints);
+
+        when(_fetchUser.call(any)).thenAnswer((_) async => const Left(UIError('error')));
+
+        // ignore: unawaited_futures
+        expectLater(
+            cubit,
+            emitsInOrder(<UserState>[
+              UserState.loading(payload: cubit.state.payload.copyWith(user: null)),
+              UserState.error(payload: cubit.state.payload.copyWith(error: 'error')),
+            ]));
+
+        await cubit.fetchUser();
+
+        verify(_fetchUser.call());
+      });
     });
 
-    test('UserCubit fetchUser emits loading, then error, with error message, if something goes wrong', () async {
-      final cubit = UserCubit(_fetchUser);
+    group("UserCubit resetPoints", () {
+      test(' (once a user is loaded) emits loaded, with user payload\'s points set to 0', () async {
+        final cubit = UserCubit(_fetchUser, _resetPoints);
 
-      when(_fetchUser.call(any)).thenAnswer((_) async => const Left(UIError('error')));
+        // Simulate previous loading of user
+        cubit.emit(cubit.state.copyWith.payload(user: userModel));
 
-      // ignore: unawaited_futures
-      expectLater(
-          cubit,
-          emitsInOrder(<UserState>[
-            UserState.loading(payload: cubit.state.payload.copyWith(user: null)),
-            UserState.error(payload: cubit.state.payload.copyWith(error: 'error')),
-          ]));
+        // ignore: unawaited_futures
+        expectLater(
+            cubit,
+            emitsInOrder(<UserState>[
+              UserState.loaded(payload: cubit.state.payload.copyWith(user: userModel.copyWith(points: 0))),
+            ]));
 
-      await cubit.fetchUser();
+        await cubit.resetPoints();
+        verify(_resetPoints.call());
 
-      verify(_fetchUser.call());
+        clearInteractions(_resetPoints);
+      });
+
+      test(' emits loading, then error, with error message, if something goes wrong', () async {
+        final cubit = UserCubit(_fetchUser, _resetPoints);
+
+        when(_resetPoints.call(any)).thenAnswer((_) async => const Left(UIError('error')));
+
+        // ignore: unawaited_futures
+        expectLater(
+            cubit,
+            emitsInOrder(<UserState>[
+              UserState.error(payload: cubit.state.payload.copyWith(error: 'error')),
+            ]));
+
+        await cubit.resetPoints();
+
+        verify(_resetPoints.call());
+      });
     });
   });
 }

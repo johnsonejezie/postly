@@ -4,9 +4,10 @@ import 'package:Postly/core/utilities/error_helpers.dart';
 import 'package:Postly/features/user/domain/repositories/user_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class ResetPoints implements Usecase<VoidType, NoParams> {
-  ResetPoints(this._userRepository);
+class ResetPoints implements Usecase<VoidType, int> {
   final UserRepository _userRepository;
+
+  ResetPoints(this._userRepository);
 
   @override
   Future<Either<UIError, VoidType>> call([params]) async {

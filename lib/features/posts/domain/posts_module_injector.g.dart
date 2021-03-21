@@ -14,5 +14,7 @@ class _$PostsModuleInjector extends PostsModuleInjector {
         (c) => PostsRemoteDatasourceImpl(c<NetworkService>()));
     container.registerFactory<PostsRepository>((c) => PostsRepositoryImpl(
         c<PostsRemoteDatasource>(), c<UserLocalDatasource>()));
+    container.registerSingleton((c) => CreatePost(c<PostsRepository>()));
+    container.registerSingleton((c) => FetchPosts(c<PostsRepository>()));
   }
 }

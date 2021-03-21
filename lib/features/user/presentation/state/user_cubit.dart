@@ -1,6 +1,7 @@
 import 'package:Postly/features/user/data/datasources/user_local_datasource.dart';
 import 'package:Postly/features/user/domain/models/user_model.dart';
 import 'package:Postly/features/user/domain/usecases/fetch_user.dart';
+import 'package:Postly/features/user/domain/usecases/reset_points.dart';
 import 'package:Postly/features/user/domain/user_module_injector.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -11,6 +12,7 @@ part 'user_state.dart';
 
 class UserCubit extends HydratedCubit<UserState> {
   final FetchUser _fetchUser;
+  final ResetPoints _resetPoints;
 
   static const _initialUserState = UserState.initial(
     payload: UserStatePayload(
@@ -19,7 +21,7 @@ class UserCubit extends HydratedCubit<UserState> {
     ),
   );
 
-  UserCubit(this._fetchUser) : super(_initialUserState) {
+  UserCubit(this._fetchUser, this._resetPoints) : super(_initialUserState) {
     UserModuleInjector.resolve<UserLocalDatasource>().userPointsStreamController.stream.listen((reset) {
       emit(
         state.copyWith.payload.user(points: reset ? 0 : state.payload.user.points + 2),
@@ -40,6 +42,15 @@ class UserCubit extends HydratedCubit<UserState> {
     res.fold(
       (l) => emit(UserState.error(payload: state.payload.copyWith(error: l.message))),
       (r) => emit(UserState.loaded(payload: state.payload.copyWith(user: r))),
+    );
+  }
+
+  Future<void> resetPoints() async {
+    final res = await _resetPoints();
+
+    res.fold(
+      (l) => emit(UserState.error(payload: state.payload.copyWith(error: l.message))),
+      (r) => emit(UserState.loaded(payload: state.payload.copyWith())),
     );
   }
 

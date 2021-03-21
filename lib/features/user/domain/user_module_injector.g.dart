@@ -12,7 +12,11 @@ class _$UserModuleInjector extends UserModuleInjector {
     final KiwiContainer container = KiwiContainer();
     container.registerFactory<UserRemoteDatasource>(
         (c) => UserRemoteDatasourceImpl(c<NetworkService>()));
+    container
+        .registerFactory<UserLocalDatasource>((c) => UserLocalDatasourceImpl());
     container.registerFactory<UserRepository>((c) => UserRepositoryImpl(
         c<UserRemoteDatasource>(), c<UserLocalDatasource>()));
+    container.registerSingleton((c) => FetchUser(c<UserRepository>()));
+    container.registerSingleton((c) => ResetPoints(c<UserRepository>()));
   }
 }

@@ -6,8 +6,9 @@ import 'package:Postly/features/posts/domain/repositories/posts_repository.dart'
 import 'package:dartz/dartz.dart';
 
 class FetchPosts implements Usecase<List<PostModel>, NoParams> {
-  FetchPosts(this._postsRepository);
   final PostsRepository _postsRepository;
+
+  FetchPosts(this._postsRepository);
 
   @override
   Future<Either<UIError, List<PostModel>>> call([params]) async {
