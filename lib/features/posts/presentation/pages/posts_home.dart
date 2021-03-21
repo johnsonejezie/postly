@@ -1,5 +1,6 @@
 import 'package:Postly/core/platform/size_config.dart';
 import 'package:Postly/features/posts/presentation/state/posts_cubit.dart';
+import 'package:Postly/features/posts/presentation/widgets/postly_legend_bottomsheet.dart';
 import 'package:Postly/features/posts/presentation/widgets/posts_list.dart';
 import 'package:Postly/features/user/presentation/state/user_cubit.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,12 @@ import 'create_post_page.dart';
 
 class PostsHome extends StatelessWidget {
   const PostsHome({Key key}) : super(key: key);
+
+  Future<void> _showLegendaryDialog(BuildContext context) async => showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (_) => const PostlyLegendBottomsheet(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -31,46 +38,60 @@ class PostsHome extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            BlocBuilder<UserCubit, UserState>(
-              builder: (_, state) => state.maybeWhen(
-                loading: (_) => const CircularProgressIndicator(),
-                loaded: (payload) => Container(
-                  padding: EdgeInsets.all(sc.screenScaledSize(20)),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          "  Hi, ${payload.user.username}",
-                          style: sc.h4Theme,
-                        ),
-                      ),
-                      Text(
-                        "${payload.user.points < 6 ? 'Beginner' : payload.user.points < 10 ? 'Intermediate' : payload.user.points < 17 ? 'Professional' : 'Legend'} (${payload.user.points})",
-                      ),
-                    ],
-                  ),
-                ),
-                orElse: () => const SizedBox(),
-              ),
-            ),
-
-            // POSTS
-            Expanded(
-              child: BlocBuilder<PostsCubit, PostsState>(
+        child: BlocListener<PostsCubit, PostsState>(
+          listener: (ctx, state) {
+            state.maybeWhen(
+              loaded: (_) {
+                if (context.read<UserCubit>().state.payload.user.points > 16) {
+                  _showLegendaryDialog(ctx).then(
+                    (_) => context.read<UserCubit>().resetPoints(),
+                  );
+                }
+              },
+              orElse: () {},
+            );
+          },
+          child: Column(
+            children: [
+              BlocBuilder<UserCubit, UserState>(
                 builder: (_, state) => state.maybeWhen(
-                  loading: (_) => const Center(child: CircularProgressIndicator()),
-                  loaded: (payload) => PostsList(posts: payload.posts),
-                  creatingPost: (payload) => PostsList(posts: payload.posts),
-                  postCreated: (payload) => PostsList(posts: payload.posts),
+                  loading: (_) => const CircularProgressIndicator(),
+                  loaded: (payload) => Container(
+                    padding: EdgeInsets.all(sc.screenScaledSize(20)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            "  Hi, ${payload.user.username}",
+                            style: sc.h4Theme,
+                          ),
+                        ),
+                        Text(
+                          "${payload.user.points < 6 ? 'Beginner' : payload.user.points < 10 ? 'Intermediate' : payload.user.points < 17 ? 'Professional' : 'Legend'} (${payload.user.points})",
+                        ),
+                      ],
+                    ),
+                  ),
                   orElse: () => const SizedBox(),
                 ),
               ),
-            ),
-          ],
+
+              // POSTS
+              Expanded(
+                child: BlocBuilder<PostsCubit, PostsState>(
+                  builder: (_, state) => state.maybeWhen(
+                    loading: (_) => const Center(child: CircularProgressIndicator()),
+                    loaded: (payload) => PostsList(posts: payload.posts),
+                    creatingPost: (payload) => PostsList(posts: payload.posts),
+                    postCreated: (payload) => PostsList(posts: payload.posts),
+                    orElse: () => const SizedBox(),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
