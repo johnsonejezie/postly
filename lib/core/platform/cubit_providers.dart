@@ -13,6 +13,6 @@ final providers = [
     create: (_) => UserCubit(
       UserModuleInjector.resolve<FetchUser>(),
       UserModuleInjector.resolve<ResetPoints>(),
-    ),
+    )..fetchUser(),
   ),
 ];
