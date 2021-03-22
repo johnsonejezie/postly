@@ -15,7 +15,7 @@ class AppColors {
 final ThemeData appThemeLight = ThemeData(
     primarySwatch: Colors.blue,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    scaffoldBackgroundColor: const Color(0xffffffff),
+    scaffoldBackgroundColor: const Color(0xfffeffff),
     brightness: Brightness.light,
     primaryColor: AppColors.primaryColor,
     primaryColorBrightness: Brightness.dark,
@@ -43,13 +43,14 @@ final ThemeData appThemeLight = ThemeData(
         letterSpacing: 1.1,
       ),
       headline5: TextStyle(
-        color: AppColors.primaryColor,
-        fontSize: 15,
+        // color: AppColors.primaryColor,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
         letterSpacing: 1.05,
       ),
       bodyText2: TextStyle(
         color: AppColors.greyDark,
         fontSize: 14,
+        height: 1.3,
       ),
     ));

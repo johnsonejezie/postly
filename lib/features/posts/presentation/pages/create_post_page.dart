@@ -82,7 +82,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
             SizedBox(height: sc.screenScaledSize(100)),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Cancel"),
+              child: Text(
+                "Cancel",
+                style: sc.h4Theme.copyWith(color: Theme.of(context).colorScheme.error),
+              ),
             ),
           ]),
         ),

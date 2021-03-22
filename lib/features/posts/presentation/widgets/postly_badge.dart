@@ -20,7 +20,7 @@ class PostlyBadge extends StatelessWidget {
         Container(
           // height: sc.screenScaledSize(30),
           decoration: BoxDecoration(
-            // color: Theme.of(context).primaryColor,
+            color: Theme.of(context).cardColor,
             border: Border.all(color: Theme.of(context).accentColor),
             borderRadius: BorderRadius.all(Radius.circular(sc.screenScaledSize(15))),
           ),

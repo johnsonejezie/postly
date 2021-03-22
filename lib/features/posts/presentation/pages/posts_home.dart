@@ -24,6 +24,7 @@ class PostsHome extends StatelessWidget {
     final sc = SizeConfig(context: context);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(builder: (_) => const CreatePostPage()),
@@ -60,6 +61,10 @@ class PostsHome extends StatelessWidget {
                   loading: (_) => const CircularProgressIndicator(),
                   loaded: (payload) => Container(
                     padding: EdgeInsets.all(sc.screenScaledSize(20)),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
