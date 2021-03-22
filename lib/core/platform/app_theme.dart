@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
   static const accent = Color(0xff00AAAA);
@@ -33,15 +34,19 @@ final ThemeData appThemeLight = ThemeData(
     indicatorColor: AppColors.primaryColor,
     hintColor: AppColors.accent,
     errorColor: AppColors.error,
+    fontFamily: GoogleFonts.play().fontFamily,
     textTheme: const TextTheme(
       headline4: TextStyle(
+        fontSize: 24,
         color: AppColors.accent,
         fontWeight: FontWeight.bold,
+        letterSpacing: 1.1,
       ),
       headline5: TextStyle(
         color: AppColors.primaryColor,
         fontSize: 15,
         fontWeight: FontWeight.bold,
+        letterSpacing: 1.05,
       ),
       bodyText2: TextStyle(
         color: AppColors.greyDark,

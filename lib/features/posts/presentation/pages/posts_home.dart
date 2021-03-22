@@ -1,5 +1,6 @@
 import 'package:Postly/core/platform/size_config.dart';
 import 'package:Postly/features/posts/presentation/state/posts_cubit.dart';
+import 'package:Postly/features/posts/presentation/widgets/postly_badge.dart';
 import 'package:Postly/features/posts/presentation/widgets/postly_legend_bottomsheet.dart';
 import 'package:Postly/features/posts/presentation/widgets/posts_list.dart';
 import 'package:Postly/features/user/presentation/state/user_cubit.dart';
@@ -64,14 +65,21 @@ class PostsHome extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          child: Text(
-                            "  Hi, ${payload.user.username}",
+                          child: Text.rich(
+                            TextSpan(children: [
+                              TextSpan(
+                                text: " Hello, ",
+                                style: sc.h4Theme.copyWith(
+                                  color: Theme.of(context).textTheme.caption.color,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              TextSpan(text: "${payload.user.username}!"),
+                            ]),
                             style: sc.h4Theme,
                           ),
                         ),
-                        Text(
-                          "${payload.user.points < 6 ? 'Beginner' : payload.user.points < 10 ? 'Intermediate' : payload.user.points < 17 ? 'Professional' : 'Legend'} (${payload.user.points})",
-                        ),
+                        PostlyBadge(payload.user.points),
                       ],
                     ),
                   ),
