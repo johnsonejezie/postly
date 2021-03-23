@@ -1,43 +1,36 @@
+import 'package:Postly/core/di/configure_dependencies.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+import 'core/platform/app_theme.dart';
+import 'core/platform/connection_status.dart';
+import 'core/platform/cubit_providers.dart';
+import 'features/posts/presentation/pages/posts_home.dart';
+
+Future<void> main() async {
+  configureDependencies();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+
+  ConnectionStatusSingleton.getInstance().initialize();
+
   runApp(Postly());
 }
 
 class Postly extends StatelessWidget {
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Postly',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Posts'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Text(widget.title),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: providers,
+        child: MaterialApp(
+          title: 'Postly',
+          debugShowCheckedModeBanner: false,
+          theme: appThemeLight,
+          home: const PostsHome(),
+        ),
+      );
 }
