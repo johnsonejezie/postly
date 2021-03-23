@@ -32,11 +32,13 @@ class _PostlyLegendBottomsheetState extends State<PostlyLegendBottomsheet> {
             ),
           ),
           const Spacer(),
-          Expanded(
-            child: Text(
-              "You are a postly legend",
-              style: _sc.h5Theme,
-            ),
+          const Text(
+            "🎉",
+            style: TextStyle(fontSize: 50),
+          ),
+          Text(
+            "You are a postly legend",
+            style: _sc.h5Theme.copyWith(color: Colors.black45),
           ),
           const Spacer(),
           Container(
@@ -47,13 +49,9 @@ class _PostlyLegendBottomsheetState extends State<PostlyLegendBottomsheet> {
               ),
               color: Theme.of(context).accentColor,
             ),
-            child: FlatButton.icon(
+            child: FlatButton(
               onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(
-                Icons.celebration,
-                color: Colors.white,
-              ),
-              label: Text(
+              child: Text(
                 "Yay!",
                 style: Theme.of(context).textTheme.subtitle1.copyWith(
                       fontSize: 20,
