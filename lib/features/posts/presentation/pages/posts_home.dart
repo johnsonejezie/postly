@@ -19,6 +19,12 @@ class PostsHome extends StatelessWidget {
         builder: (_) => const PostlyLegendBottomsheet(),
       );
 
+  Future<void> _showNewPostSheet(BuildContext context) async => showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (_) => const CreatePostPage(),
+      );
+
   @override
   Widget build(BuildContext context) {
     final sc = SizeConfig(context: context);
@@ -29,9 +35,7 @@ class PostsHome extends StatelessWidget {
         builder: (_, userState) => userState.maybeWhen(
           error: (_) => const SizedBox(),
           orElse: () => FloatingActionButton.extended(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => const CreatePostPage()),
-            ),
+            onPressed: () => _showNewPostSheet(context),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),

@@ -1,4 +1,3 @@
-import 'package:Postly/core/platform/app_theme.dart';
 import 'package:Postly/core/platform/size_config.dart';
 import 'package:Postly/features/posts/domain/models/post_model.dart';
 import 'package:Postly/features/posts/presentation/state/posts_cubit.dart';
@@ -31,8 +30,9 @@ class _CreatePostPageState extends State<CreatePostPage> {
     final sc = SizeConfig(context: context);
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: canCreate ? Theme.of(context).accentColor : Theme.of(context).disabledColor,
+        backgroundColor: canCreate ? Theme.of(context).primaryColor : Theme.of(context).disabledColor,
         onPressed: !canCreate
             ? null
             : () {
@@ -51,44 +51,71 @@ class _CreatePostPageState extends State<CreatePostPage> {
         ),
         child: const Icon(Icons.send),
       ),
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(sc.screenScaledSize(20)),
-          child: Column(children: [
-            Text(
-              'Create new post',
-              style: sc.h4Theme,
-            ),
-            SizedBox(height: sc.screenScaledSize(150)),
-            TextFormField(
-              controller: titleController,
-              focusNode: titleNode,
-              onChanged: (_) => setState(() {}),
-              decoration: const InputDecoration(
-                hintText: "Title",
-                hintStyle: TextStyle(color: AppColors.grey),
-              ),
-            ),
-            SizedBox(height: sc.screenScaledSize(50)),
-            TextFormField(
-              controller: bodyController,
-              onChanged: (_) => setState(() {}),
-              maxLines: 6,
-              decoration: const InputDecoration(
-                hintText: "Body",
-                hintStyle: TextStyle(color: AppColors.grey),
-              ),
-            ),
-            SizedBox(height: sc.screenScaledSize(100)),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                "Cancel",
-                style: sc.h4Theme.copyWith(color: Theme.of(context).colorScheme.error),
-              ),
-            ),
-          ]),
+      body: Container(
+        padding: EdgeInsets.all(sc.screenScaledSize(20)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(sc.screenScaledSize(30)),
+            topRight: Radius.circular(sc.screenScaledSize(30)),
+          ),
+          color: Theme.of(context).accentColor,
         ),
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "What's on your mind?",
+                style: sc.h4Theme.copyWith(color: Colors.white),
+              ),
+              IconButton(
+                splashColor: Theme.of(context).primaryColor,
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: sc.screenScaledSize(40)),
+          // const Text("Title"),
+          TextFormField(
+            controller: titleController,
+            focusNode: titleNode,
+            onChanged: (_) => setState(() {}),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+            ),
+            decoration: const InputDecoration(
+              hintText: "Title",
+              hintStyle: TextStyle(
+                color: Colors.white70,
+                fontSize: 25,
+              ),
+              border: InputBorder.none,
+            ),
+          ),
+          SizedBox(height: sc.screenScaledSize(50)),
+          TextFormField(
+            controller: bodyController,
+            onChanged: (_) => setState(() {}),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+            ),
+            maxLines: 6,
+            decoration: const InputDecoration(
+              hintText: "Body",
+              hintStyle: TextStyle(
+                color: Colors.white70,
+                fontSize: 25,
+              ),
+              border: InputBorder.none,
+            ),
+          ),
+        ]),
       ),
     );
   }
