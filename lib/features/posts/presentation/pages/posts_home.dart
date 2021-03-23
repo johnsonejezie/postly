@@ -25,86 +25,104 @@ class PostsHome extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => const CreatePostPage()),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        label: Row(
-          children: const [
-            Icon(Icons.add),
-            SizedBox(width: 5),
-            Text("Create post"),
-          ],
+      floatingActionButton: BlocBuilder<UserCubit, UserState>(
+        builder: (_, userState) => userState.maybeWhen(
+          error: (_) => const SizedBox(),
+          orElse: () => FloatingActionButton.extended(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const CreatePostPage()),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            label: Row(
+              children: const [
+                Icon(Icons.add),
+                SizedBox(width: 5),
+                Text("Create post"),
+              ],
+            ),
+          ),
         ),
       ),
       body: SafeArea(
-        child: BlocListener<PostsCubit, PostsState>(
-          listener: (ctx, state) {
-            state.maybeWhen(
-              loaded: (_) {
-                if (context.read<UserCubit>().state.payload.user.points > 16) {
-                  _showLegendaryDialog(ctx).then(
-                    (_) => context.read<UserCubit>().resetPoints(),
-                  );
-                }
+        child: BlocBuilder<UserCubit, UserState>(
+          buildWhen: (_, newState) => newState.maybeWhen(
+            orElse: () => false,
+            error: (_) => true,
+          ),
+          builder: (_, userState) => userState.maybeWhen(
+            error: (_) => Center(
+                child: Text(
+              userState.payload.error,
+              style: Theme.of(context).textTheme.headline5,
+            )),
+            orElse: () => BlocListener<PostsCubit, PostsState>(
+              listener: (ctx, state) {
+                state.maybeWhen(
+                  loaded: (_) {
+                    if (context.read<UserCubit>().state.payload.user.points > 16) {
+                      _showLegendaryDialog(ctx).then(
+                        (_) => context.read<UserCubit>().resetPoints(),
+                      );
+                    }
+                  },
+                  orElse: () {},
+                );
               },
-              orElse: () {},
-            );
-          },
-          child: Column(
-            children: [
-              BlocBuilder<UserCubit, UserState>(
-                builder: (_, state) => state.maybeWhen(
-                  loading: (_) => const CircularProgressIndicator(),
-                  loaded: (payload) => Container(
-                    padding: EdgeInsets.all(sc.screenScaledSize(20)),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text.rich(
-                            TextSpan(children: [
-                              TextSpan(
-                                text: " Hello, ",
-                                style: sc.h4Theme.copyWith(
-                                  color: Theme.of(context).textTheme.caption.color,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              TextSpan(text: "${payload.user.username}!"),
-                            ]),
-                            style: sc.h4Theme,
-                          ),
+              child: Column(
+                children: [
+                  BlocBuilder<UserCubit, UserState>(
+                    builder: (_, state) => state.maybeWhen(
+                      loading: (_) => const CircularProgressIndicator(),
+                      loaded: (payload) => Container(
+                        padding: EdgeInsets.all(sc.screenScaledSize(20)),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
                         ),
-                        PostlyBadge(payload.user.points),
-                      ],
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(
+                                    text: " Hello, ",
+                                    style: sc.h4Theme.copyWith(
+                                      color: Theme.of(context).textTheme.caption.color,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  TextSpan(text: "${payload.user.username}!"),
+                                ]),
+                                style: sc.h4Theme,
+                              ),
+                            ),
+                            PostlyBadge(payload.user.points),
+                          ],
+                        ),
+                      ),
+                      orElse: () => const SizedBox(),
                     ),
                   ),
-                  orElse: () => const SizedBox(),
-                ),
-              ),
 
-              // POSTS
-              Expanded(
-                child: BlocBuilder<PostsCubit, PostsState>(
-                  builder: (_, state) => state.maybeWhen(
-                    loading: (_) => const Center(child: CircularProgressIndicator()),
-                    loaded: (payload) => PostsList(posts: payload.posts),
-                    creatingPost: (payload) => PostsList(posts: payload.posts),
-                    postCreated: (payload) => PostsList(posts: payload.posts),
-                    orElse: () => const SizedBox(),
+                  // POSTS
+                  Expanded(
+                    child: BlocBuilder<PostsCubit, PostsState>(
+                      builder: (_, state) => state.maybeWhen(
+                        loading: (_) => const Center(child: CircularProgressIndicator()),
+                        loaded: (payload) => PostsList(posts: payload.posts),
+                        creatingPost: (payload) => PostsList(posts: payload.posts),
+                        postCreated: (payload) => PostsList(posts: payload.posts),
+                        orElse: () => const SizedBox(),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

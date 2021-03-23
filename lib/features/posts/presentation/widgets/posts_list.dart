@@ -1,4 +1,3 @@
-import 'package:Postly/core/platform/size_config.dart';
 import 'package:Postly/features/posts/domain/models/post_model.dart';
 import 'package:Postly/features/posts/presentation/state/posts_cubit.dart';
 import 'package:Postly/features/posts/presentation/widgets/post_item.dart';
@@ -33,15 +32,21 @@ class _PostsListState extends State<PostsList> {
               orElse: () {},
             );
           },
-          child: ListView.builder(
-            controller: scrollController,
-            itemCount: widget.posts.length,
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            itemBuilder: (_, i) => PostItem(
-              widget.posts[i],
-              position: i + 1,
-            ),
-          ),
+          child: widget.posts.isEmpty
+              ? Center(
+                  child: Text(
+                  "No posts yet",
+                  style: Theme.of(context).textTheme.headline5,
+                ))
+              : ListView.builder(
+                  controller: scrollController,
+                  itemCount: widget.posts.length,
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  itemBuilder: (_, i) => PostItem(
+                    widget.posts[i],
+                    position: i + 1,
+                  ),
+                ),
         ),
       );
 }

@@ -41,7 +41,13 @@ class UserCubit extends HydratedCubit<UserState> {
 
     res.fold(
       (l) => emit(UserState.error(payload: state.payload.copyWith(error: l.message))),
-      (r) => emit(UserState.loaded(payload: state.payload.copyWith(user: r))),
+      (r) {
+        if (r == null) {
+          emit(UserState.error(payload: state.payload.copyWith(error: "No user found")));
+        } else {
+          emit(UserState.loaded(payload: state.payload.copyWith(user: r)));
+        }
+      },
     );
   }
 
